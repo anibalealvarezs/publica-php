@@ -47,7 +47,6 @@ class UsersApi
             throw new InvalidArgumentException('invalid value for "$per_page" when calling UsersApi., must be smaller than or equal to 100.');
         }
 
-
         $resourcePath = self::END_POINT;
         $queryParams = [];
         $headerParams = [];
