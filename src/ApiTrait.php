@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TooManyRedirectsException;
+use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Query;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
@@ -81,10 +82,11 @@ trait ApiTrait
             return json_decode($response->getBody()->getContents());
 
         } catch (ClientException | ServerException | TooManyRedirectsException $e) {
-            throw $e->getResponse();
+            echo Message::toString($e->getResponse());
         } catch (ConnectException $e) {
-            throw $e->getRequest();
+            echo Message::toString($e->getRequest());
         }
+        die();
     }
 
     protected function setHeaders($headerParams): array
