@@ -52,16 +52,16 @@ $publica = new PublicaPHP\ApiClient();
 
 $publica->setConfig([
   'apiKey' => 'YOUR_API_KEY',
-  'account' => 'YOUR_ACCOUNT', // email@email.com
+  'url' => 'YOUR_URL', // https://your.domain
 ]);
 
-$response = $publica->lists->getAllLists();
+$response = $publica->lists->getAllUsers();
 print_r($response);
 ```
 
 ## Authentication Method
 
-The client library must be configured to use **Bearer Token**.
+The client library must be configured to use **X-User-Token** header parameter.
 
 ## Other configuration options
 The APIClient class lets you set various configuration options like timeouts, host, user agent, and debug output.
