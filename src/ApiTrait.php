@@ -55,7 +55,6 @@ trait ApiTrait
     }
 
     /**
-     * @throws ApiException
      * @throws GuzzleException
      */
     protected function performRequest($request): mixed
@@ -81,12 +80,13 @@ trait ApiTrait
 
             return json_decode($response->getBody()->getContents());
 
+        } catch (ApiException $e) {
+            return $e->getMessage();
         } catch (ClientException | ServerException | TooManyRedirectsException $e) {
-            echo Message::toString($e->getResponse());
+            return Message::toString($e->getResponse());
         } catch (ConnectException $e) {
-            echo Message::toString($e->getRequest());
+            return Message::toString($e->getRequest());
         }
-        die();
     }
 
     protected function setHeaders($headerParams): array
