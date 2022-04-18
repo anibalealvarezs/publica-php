@@ -96,8 +96,8 @@ trait ApiTrait
             ['application/json']
         );
 
-        // Bearer Token Authentication
-        if (!empty($this->config->getAccount()) && !empty($this->config->getApiKey())) {
+        // Custom User Token
+        if (!empty($this->config->getApiKey())) {
             $headers['X-User-Token'] = $this->config->getApiKey();
         }
 
@@ -183,7 +183,7 @@ trait ApiTrait
 
     protected function serializeParam(&$queryParams, $param, $key)
     {
-        if ($param) {
+        if ($param != null) {
             $queryParams[$key] = ObjectSerializer::toQueryValue($param);
         }
     }

@@ -51,14 +51,9 @@ class Configuration
         return $this;
     }
 
-    public function getApiKey()
+    public function getApiKey(): ?string
     {
         return $this->apiKey ?? null;
-    }
-
-    public function getAccount(): string
-    {
-        return $this->account;
     }
 
     public function setHost($host): Configuration
