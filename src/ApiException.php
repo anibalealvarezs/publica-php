@@ -89,7 +89,7 @@ class ApiException extends Exception
      *
      * @return mixed the deserialized response object
      */
-    public function getResponseObject()
+    public function getResponseObject(): mixed
     {
         return $this->responseObject;
     }

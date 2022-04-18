@@ -3,13 +3,16 @@
 namespace PublicaPHP;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Exception\TooManyRedirectsException;
 use GuzzleHttp\Psr7\Query;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Utils;
 use stdClass;
-use function GuzzleHttp\Psr7\str;
 
 trait ApiTrait
 {
@@ -50,6 +53,10 @@ trait ApiTrait
         return $options;
     }
 
+    /**
+     * @throws ApiException
+     * @throws GuzzleException
+     */
     protected function performRequest($request): mixed
     {
         try {
@@ -73,10 +80,10 @@ trait ApiTrait
 
             return json_decode($response->getBody()->getContents());
 
-        } catch (ApiException $e) {
-            throw $e->getResponseBody();
-        } catch (RequestException $e) {
-            throw str($e->getResponse());
+        } catch (ClientException | ServerException | TooManyRedirectsException $e) {
+            throw $e->getResponse();
+        } catch (ConnectException $e) {
+            throw $e->getRequest();
         }
     }
 
