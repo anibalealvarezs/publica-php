@@ -55,7 +55,7 @@ $publica->setConfig([
   'url' => 'YOUR_URL', // https://your.domain
 ]);
 
-$response = $publica->lists->getAllUsers();
+$response = $publica->users->getAllUsers();
 print_r($response);
 ```
 

@@ -3,6 +3,7 @@
 namespace PublicaPHP;
 
 use PublicaPHP\Api\OrdersApi;
+use PublicaPHP\Api\UsersApi;
 
 class Configuration
 {
@@ -15,13 +16,15 @@ class Configuration
     protected string $debugFile = 'php://output';
     protected string $tempFolderPath;
     protected int $timeout = 120;
-    public OrdersApi $lists;
+    public UsersApi $users;
+    public OrdersApi $orders;
 
     public function __construct()
     {
         $this->tempFolderPath = sys_get_temp_dir();
 
-        $this->lists = new OrdersApi($this);
+        $this->orders = new OrdersApi($this);
+        $this->users = new UsersApi($this);
     }
 
     public function setConfig($config = array()): Configuration
